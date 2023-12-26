@@ -4,10 +4,10 @@ public class Course {
     private String _courseName;
     private String _courseCatalog;
     private int _courseCredits;
-    private Character _courseGrade;
+    private String _courseGrade;
     private boolean _courseAchieved;
 
-    public Course(String courseName, String courseCatalog, int courseCredits, Character courseGrade){
+    public Course(String courseName, String courseCatalog, int courseCredits, String courseGrade){
         this._courseName = courseName;
         this._courseCatalog = courseCatalog;
         this._courseCredits = courseCredits;
@@ -27,7 +27,7 @@ public class Course {
         return this._courseCredits;
     }
 
-    public Character getCourseGrade(){
+    public String getCourseGrade(){
         return this._courseGrade;
     }
 

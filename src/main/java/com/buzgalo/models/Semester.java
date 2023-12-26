@@ -7,6 +7,7 @@ public class Semester {
         FALL,
         SPRING
     }
+
     private ArrayList<Course> _courseList = new ArrayList<Course>();
     private Season _season;
     private int _year;
@@ -30,5 +31,15 @@ public class Semester {
 
     public void addCourseToList(Course course){
         this._courseList.add(course);
+    }
+
+    public double getGPA(){
+        double totalGP = 0.0;
+        int courseCount = 0;
+        for (Course course : this._courseList){
+            courseCount += 1;
+            totalGP += GPMap.getGPFromLetter(course.getCourseGrade());
+        }
+        return (totalGP / courseCount);
     }
 }

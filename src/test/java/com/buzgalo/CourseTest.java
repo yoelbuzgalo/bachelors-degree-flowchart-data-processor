@@ -14,7 +14,7 @@ public class CourseTest
     private static final String courseName = "Software Development and Problem Solving 1";
     private static final String courseCatalog = "GCIS-123";
     private static final int courseCredit = 4;
-    private static final char courseGrade = 'A';
+    private static final String courseGrade = "A";
 
 
     @Test
