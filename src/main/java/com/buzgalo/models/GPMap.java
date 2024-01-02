@@ -3,7 +3,7 @@ package com.buzgalo.models;
 import java.util.HashMap;
 
 public class GPMap {
-    static private HashMap<String, Double> _gradePoint = new HashMap<String, Double>();
+    static final private HashMap<String, Double> _gradePoint = new HashMap<String, Double>();
 
     static {
         _gradePoint.put("A", 4.0);

@@ -13,9 +13,9 @@ public class SemesterTest {
     // Setup
     static private final int _year = 2023;
     static private final Season _season = Season.FALL;
-    static private final Course _course1 = new Course("A", "ABC-123", 3, "B");
+    static private final Course _course1 = new Course("A", "ABC-123", 3, "A");
     static private final Course _course2 = new Course("B", "DEF-123", 3, "B");
-    static private final Course _course3 = new Course("C", "GHI-123", 3, "B");
+    static private final Course _course3 = new Course("C", "GHI-123", 3, "C");
 
     @Test
     @DisplayName("Semester Info Test")
@@ -24,8 +24,8 @@ public class SemesterTest {
         Semester semester = new Semester(_year, _season);
 
         //Analysis
-        assertEquals(semester.getYear(), _year);
-        assertEquals(semester.getSeason(), _season);
+        assertEquals(_year, semester.getYear());
+        assertEquals(_season, semester.getSeason());
         assertTrue(semester.getCourseList().isEmpty());
     }
 
@@ -39,8 +39,8 @@ public class SemesterTest {
         semester.addCourseToList(_course3);
 
         // Analysis
-        assertEquals(semester.getCourseList().size(), 3);
-        assertEquals(semester.getCourseList().get(0), _course1);
+        assertEquals(3, semester.getCourseList().size());
+        assertEquals(_course1, semester.getCourseList().get(0));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SemesterTest {
         double result = semester.getGPA();
 
         // Analysis
-        assertEquals(result, expectedGPA);
+        assertEquals(expectedGPA, result);
     }
 
 
