@@ -50,4 +50,14 @@ public class Student {
         return (this._creditsRequired - totalAchievedCredits);
     }
 
+    public double getCumulativeGPA(){
+        double totalAchievedSemestersGPA = 0.0;
+        int semestersCount = 0;
+        for (Semester semester: this._semesters){
+            totalAchievedSemestersGPA += semester.getGPA();
+            semestersCount += 1;
+        }
+        return (totalAchievedSemestersGPA/semestersCount);
+    }
+
 }

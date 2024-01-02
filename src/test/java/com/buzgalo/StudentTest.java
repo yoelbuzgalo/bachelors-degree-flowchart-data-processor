@@ -1,7 +1,6 @@
 package com.buzgalo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.buzgalo.models.Degree;
 import com.buzgalo.models.Semester;
@@ -73,7 +72,38 @@ public class StudentTest {
         int expectedCreditsLeft = 120;
 
         // Invoke
-        assertEquals(expectedCreditsLeft, student.getCreditsLeft());
+        int actualCreditsLeft = student.getCreditsLeft();
+
+        // Analysis
+        assertEquals(expectedCreditsLeft, actualCreditsLeft);
+
+    }
+
+    @Test
+    @DisplayName("Cumulative GPA Test")
+    public void cumulativeGPATest(){
+        // Setup
+        Student student = new Student(expectedSchool, expectedName, expectedMajor, expectedCredits, expectedDegree);
+        Semester semester_1 = new Semester(2023, Semester.Season.FALL);
+        Semester semester_2 = new Semester(2024, Semester.Season.SPRING);
+
+        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 3, "C", "A"));
+        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, "C", "A"));
+        semester_1.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, "C", "A"));
+        semester_2.addCourseToList(new Course("Introduction to Philosophy", "PHYL-101", 3, "C", "B"));
+        semester_2.addCourseToList(new Course("Calculus 1", "MATH-181", 3, "C", "B"));
+        semester_2.addCourseToList(new Course("Deaf Studies: Global South","NDLS-289", 3, "C", "B"));
+
+        student.addSemester(semester_1);
+        student.addSemester(semester_2);
+
+        double expectedCumulativeGPA = 3.5;
+
+        // Invoke
+        double actualCumulativeGPA = student.getCumulativeGPA();
+
+        // Analysis
+        assertEquals(expectedCumulativeGPA, actualCumulativeGPA);
 
     }
 }
