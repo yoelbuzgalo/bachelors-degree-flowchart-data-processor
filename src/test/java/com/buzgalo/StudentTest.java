@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.buzgalo.models.Degree;
 import com.buzgalo.models.Semester;
+import com.buzgalo.models.Course;
 import com.buzgalo.models.Student;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,27 @@ public class StudentTest {
         // Analysis
         assertEquals(2, student.getSemesters().size());
         assertEquals(semester_1, student.getSemesters().get(0));
+    }
+
+    @Test
+    @DisplayName("Credits Left Test")
+    public void creditsLeftTest(){
+        // Setup
+        Student student = new Student(expectedSchool, expectedName, expectedMajor, expectedCredits, expectedDegree);
+        Semester semester_1 = new Semester(2023, Semester.Season.FALL);
+        Semester semester_2 = new Semester(2024, Semester.Season.SPRING);
+
+        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 4, "C", "A"));
+        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, "C", "B"));
+        semester_2.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, "C", "D"));
+
+        student.addSemester(semester_1);
+        student.addSemester(semester_2);
+
+        int expectedCreditsLeft = 120;
+
+        // Invoke
+        assertEquals(expectedCreditsLeft, student.getCreditsLeft());
 
     }
 }

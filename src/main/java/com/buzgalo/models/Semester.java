@@ -34,6 +34,16 @@ public class Semester {
         this._courseList.add(course);
     }
 
+    public int getAchieved(){
+        int totalSemesterCredit = 0;
+        for (Course course: this._courseList){
+            if (course.isAchieved()){
+                totalSemesterCredit += course.getCourseCredit();
+            }
+        }
+        return totalSemesterCredit;
+    }
+
     public double getGPA(){
         double totalGP = 0.0;
         int courseCount = 0;

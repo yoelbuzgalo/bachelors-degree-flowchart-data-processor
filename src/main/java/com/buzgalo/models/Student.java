@@ -42,4 +42,12 @@ public class Student {
         return Collections.unmodifiableList(this._semesters);
     }
 
+    public int getCreditsLeft(){
+        int totalAchievedCredits = 0;
+        for (Semester semester: this._semesters){
+            totalAchievedCredits += semester.getAchieved();
+        }
+        return (this._creditsRequired - totalAchievedCredits);
+    }
+
 }

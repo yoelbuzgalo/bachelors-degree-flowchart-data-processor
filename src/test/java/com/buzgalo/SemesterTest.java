@@ -13,9 +13,11 @@ public class SemesterTest {
     // Setup
     static private final int _year = 2023;
     static private final Season _season = Season.FALL;
-    static private final Course _course1 = new Course("A", "ABC-123", 3, "A");
-    static private final Course _course2 = new Course("B", "DEF-123", 3, "B");
-    static private final Course _course3 = new Course("C", "GHI-123", 3, "C");
+    static private final Course _course1 = new Course("A", "ABC-123", 3, "C", "A");
+    static private final Course _course2 = new Course("B", "DEF-123", 3, "C", "B");
+    static private final Course _course3 = new Course("C", "GHI-123", 3, "C", "C");
+    static private final Course _course4NotFinished = new Course("D", "JKL-123", 3, "A", null);
+    static private final Course _course5Failed = new Course("E", "MNO-123", 3, "C", "D");
 
     @Test
     @DisplayName("Semester Info Test")
@@ -58,6 +60,26 @@ public class SemesterTest {
 
         // Analysis
         assertEquals(expectedGPA, result);
+    }
+
+    @Test
+    @DisplayName("Achieved credits per semester test")
+    public void achievedTest(){
+        // Setup
+        Semester semester = new Semester(_year, _season);
+        semester.addCourseToList(_course1);
+        semester.addCourseToList(_course2);
+        semester.addCourseToList(_course3);
+        semester.addCourseToList(_course4NotFinished);
+        semester.addCourseToList(_course5Failed);
+        int expectedResult = 9;
+
+        // Invoke
+        int actual = semester.getAchieved();
+
+        // Analysis
+        assertEquals(expectedResult, actual);
+
     }
 
 
