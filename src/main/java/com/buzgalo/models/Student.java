@@ -10,6 +10,16 @@ public class Student {
     private final int _creditsRequired;
     private final Degree _degreeType;
 
+    class YearSeasonComparator implements Comparator<YearSeason> {
+        @Override
+        public int compare(YearSeason yearSeason_a, YearSeason yearSeason_b) {
+            if (yearSeason_a.getYearValue().equals(yearSeason_b.getYearValue())){
+                return yearSeason_a.getSeasonValue().compareTo(yearSeason_b.getSeasonValue());
+            }
+            return yearSeason_a.getYearValue().compareTo(yearSeason_b.getYearValue());
+        }
+    }
+
     private final Map<YearSeason, Semester> _semesters = new TreeMap<YearSeason, Semester>(new YearSeasonComparator());
 
     public Student(String school, String name, String major, int creditsRequired, Degree degreeType){

@@ -1,5 +1,7 @@
 package com.buzgalo.models;
 
+import java.util.Comparator;
+
 public class YearSeason {
     private final int _year;
     private final Season _season;
