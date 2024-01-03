@@ -4,11 +4,10 @@ public class Course {
     private String _courseName;
     private String _courseCatalog;
     private int _courseCredits;
-    private String _courseGrade;
-    private String _requiredPassingGrade;
-    private boolean _courseAchieved;
+    private Grade _requiredPassingGrade;
+    private Grade _courseGrade;
 
-    public Course(String courseName, String courseCatalog, int courseCredits,String requiredPassingGrade, String courseGrade){
+    public Course(String courseName, String courseCatalog, int courseCredits,Grade requiredPassingGrade, Grade courseGrade){
 
         // Initializers
         this._courseName = courseName;
@@ -16,13 +15,6 @@ public class Course {
         this._courseCredits = courseCredits;
         this._courseGrade = courseGrade;
         this._requiredPassingGrade = requiredPassingGrade;
-
-        // If course grade was passed null, set to false. Otherwise, check if the grade is above passing grade
-        if (this._courseGrade == null){
-            this._courseAchieved = false;
-        } else if (GPMap.getGPFromLetter(this._courseGrade) >= GPMap.getGPFromLetter(this._requiredPassingGrade)) {
-            this._courseAchieved = true;
-        }
 
     }
 
@@ -38,12 +30,12 @@ public class Course {
         return this._courseCredits;
     }
 
-    public String getCourseGrade(){
+    public Grade getCourseGrade(){
         return this._courseGrade;
     }
 
     public boolean isAchieved(){
-        return this._courseAchieved;
+        return (this._courseGrade != Grade.IN_PROGRESS && this._courseGrade != null && this._courseGrade.getGradeValue() >= this._requiredPassingGrade.getGradeValue());
     }
 
 

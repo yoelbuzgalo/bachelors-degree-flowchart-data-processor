@@ -2,10 +2,7 @@ package com.buzgalo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.buzgalo.models.Degree;
-import com.buzgalo.models.Semester;
-import com.buzgalo.models.Course;
-import com.buzgalo.models.Student;
+import com.buzgalo.models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +39,8 @@ public class StudentTest {
     public void addSemesterTest(){
         // Setup
         Student student = new Student(expectedSchool, expectedName, expectedMajor, expectedCredits, expectedDegree);
-        Semester semester_1 = new Semester(2023, Semester.Season.FALL);
-        Semester semester_2 = new Semester(2024, Semester.Season.SPRING);
+        Semester semester_1 = new Semester(2023, Season.FALL);
+        Semester semester_2 = new Semester(2024, Season.SPRING);
 
         // Invoke
         student.addSemester(semester_1);
@@ -51,7 +48,7 @@ public class StudentTest {
 
         // Analysis
         assertEquals(2, student.getSemesters().size());
-        assertEquals(semester_1, student.getSemesters().get(0));
+        assertEquals(semester_1, student.getSemesters().get(semester_1.getYearSeason()));
     }
 
     @Test
@@ -59,12 +56,12 @@ public class StudentTest {
     public void creditsLeftTest(){
         // Setup
         Student student = new Student(expectedSchool, expectedName, expectedMajor, expectedCredits, expectedDegree);
-        Semester semester_1 = new Semester(2023, Semester.Season.FALL);
-        Semester semester_2 = new Semester(2024, Semester.Season.SPRING);
+        Semester semester_1 = new Semester(2023, Season.FALL);
+        Semester semester_2 = new Semester(2024, Season.SPRING);
 
-        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 4, "C", "A"));
-        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, "C", "B"));
-        semester_2.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, "C", "D"));
+        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 4, Grade.C, Grade.A));
+        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, Grade.C, Grade.B));
+        semester_2.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, Grade.C, Grade.D));
 
         student.addSemester(semester_1);
         student.addSemester(semester_2);
@@ -84,15 +81,15 @@ public class StudentTest {
     public void cumulativeGPATest(){
         // Setup
         Student student = new Student(expectedSchool, expectedName, expectedMajor, expectedCredits, expectedDegree);
-        Semester semester_1 = new Semester(2023, Semester.Season.FALL);
-        Semester semester_2 = new Semester(2024, Semester.Season.SPRING);
+        Semester semester_1 = new Semester(2023, Season.FALL);
+        Semester semester_2 = new Semester(2024, Season.SPRING);
 
-        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 3, "C", "A"));
-        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, "C", "A"));
-        semester_1.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, "C", "A"));
-        semester_2.addCourseToList(new Course("Introduction to Philosophy", "PHYL-101", 3, "C", "B"));
-        semester_2.addCourseToList(new Course("Calculus 1", "MATH-181", 3, "C", "B"));
-        semester_2.addCourseToList(new Course("Deaf Studies: Global South","NDLS-289", 3, "C", "B"));
+        semester_1.addCourseToList(new Course("Software & Development 1", "GCIS-123", 3, Grade.C, Grade.A));
+        semester_1.addCourseToList(new Course("First Year Writing Seminar", "UWRT-150", 3, Grade.C, Grade.A));
+        semester_1.addCourseToList(new Course("Introduction to Microeconomics", "ECON-101", 3, Grade.C, Grade.A));
+        semester_2.addCourseToList(new Course("Introduction to Philosophy", "PHYL-101", 3, Grade.C, Grade.B));
+        semester_2.addCourseToList(new Course("Calculus 1", "MATH-181", 3, Grade.C, Grade.B));
+        semester_2.addCourseToList(new Course("Deaf Studies: Global South","NDLS-289", 3, Grade.C, Grade.B));
 
         student.addSemester(semester_1);
         student.addSemester(semester_2);

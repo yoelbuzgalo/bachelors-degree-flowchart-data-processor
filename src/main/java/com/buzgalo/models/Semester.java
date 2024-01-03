@@ -4,26 +4,15 @@ import java.util.*;
 
 public class Semester {
 
-    public enum Season {
-        FALL,
-        SPRING
-    }
-
     private final List<Course> _courseList = new ArrayList<Course>();
-    private final Season _season;
-    private final int _year;
+    private final YearSeason _yearSeason;
 
     public Semester(int year, Season season){
-        this._year = year;
-        this._season = season;
+        this._yearSeason = new YearSeason(year, season);
     }
 
-    public int getYear(){
-        return this._year;
-    }
-
-    public Season getSeason(){
-        return this._season;
+    public YearSeason getYearSeason(){
+        return this._yearSeason;
     }
 
     public List<Course> getCourseList(){
@@ -45,12 +34,14 @@ public class Semester {
     }
 
     public double getGPA(){
-        double totalGP = 0.0;
-        int courseCount = 0;
-        for (Course course : this._courseList){
-            courseCount += 1;
-            totalGP += GPMap.getGPFromLetter(course.getCourseGrade());
+        double totalGPA = 0.0;
+        double totalCredits = 0.0;
+        for (Course course: this._courseList){
+            if (course.isAchieved()){
+                totalCredits += course.getCourseCredit();
+                totalGPA += course.getCourseGrade().getGradeValue() * course.getCourseCredit();
+            }
         }
-        return totalGP/courseCount;
+        return totalGPA/totalCredits;
     }
 }

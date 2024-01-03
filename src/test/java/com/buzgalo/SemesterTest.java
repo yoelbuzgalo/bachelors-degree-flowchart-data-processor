@@ -2,7 +2,9 @@ package com.buzgalo;
 
 import com.buzgalo.models.Course;
 import com.buzgalo.models.Semester;
-import com.buzgalo.models.Semester.Season;
+import com.buzgalo.models.Season;
+import com.buzgalo.models.YearSeason;
+import com.buzgalo.models.Grade;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,11 +15,11 @@ public class SemesterTest {
     // Setup
     static private final int _year = 2023;
     static private final Season _season = Season.FALL;
-    static private final Course _course1 = new Course("A", "ABC-123", 3, "C", "A");
-    static private final Course _course2 = new Course("B", "DEF-123", 3, "C", "B");
-    static private final Course _course3 = new Course("C", "GHI-123", 3, "C", "C");
-    static private final Course _course4NotFinished = new Course("D", "JKL-123", 3, "A", null);
-    static private final Course _course5Failed = new Course("E", "MNO-123", 3, "C", "D");
+    static private final Course _course1 = new Course("A", "ABC-123", 3, Grade.C, Grade.A);
+    static private final Course _course2 = new Course("B", "DEF-123", 3, Grade.C, Grade.B);
+    static private final Course _course3 = new Course("C", "GHI-123", 3, Grade.C, Grade.C);
+    static private final Course _course4NotFinished = new Course("D", "JKL-123", 3, Grade.A, Grade.IN_PROGRESS);
+    static private final Course _course5Failed = new Course("E", "MNO-123", 3, Grade.C, Grade.D);
 
     @Test
     @DisplayName("Semester Info Test")
@@ -26,8 +28,8 @@ public class SemesterTest {
         Semester semester = new Semester(_year, _season);
 
         //Analysis
-        assertEquals(_year, semester.getYear());
-        assertEquals(_season, semester.getSeason());
+        assertEquals(_year, semester.getYearSeason().getYearValue());
+        assertEquals(_season, semester.getYearSeason().getSeason());
         assertTrue(semester.getCourseList().isEmpty());
     }
 

@@ -10,7 +10,7 @@ public class Student {
     private final int _creditsRequired;
     private final Degree _degreeType;
 
-    private final List<Semester> _semesters = new ArrayList<Semester>();
+    private final Map<YearSeason, Semester> _semesters = new TreeMap<YearSeason, Semester>(new YearSeasonComparator());
 
     public Student(String school, String name, String major, int creditsRequired, Degree degreeType){
         this._school = school;
@@ -35,17 +35,17 @@ public class Student {
     }
 
     public void addSemester(Semester semester){
-        this._semesters.add(semester);
+        this._semesters.put(semester.getYearSeason(), semester);
     }
 
-    public List<Semester> getSemesters(){
-        return Collections.unmodifiableList(this._semesters);
+    public Map<YearSeason, Semester> getSemesters(){
+        return Collections.unmodifiableMap(this._semesters);
     }
 
     public int getCreditsLeft(){
         int totalAchievedCredits = 0;
-        for (Semester semester: this._semesters){
-            totalAchievedCredits += semester.getAchieved();
+        for (YearSeason yearSeason: this._semesters.keySet()){
+            totalAchievedCredits += this._semesters.get(yearSeason).getAchieved();
         }
         return (this._creditsRequired - totalAchievedCredits);
     }
@@ -53,8 +53,8 @@ public class Student {
     public double getCumulativeGPA(){
         double totalAchievedSemestersGPA = 0.0;
         int semestersCount = 0;
-        for (Semester semester: this._semesters){
-            totalAchievedSemestersGPA += semester.getGPA();
+        for (YearSeason yearSeason: this._semesters.keySet()){
+            totalAchievedSemestersGPA += this._semesters.get(yearSeason).getGPA();
             semestersCount += 1;
         }
         return (totalAchievedSemestersGPA/semestersCount);
